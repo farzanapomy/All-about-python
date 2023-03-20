@@ -1,0 +1,4 @@
+Id: 1930 -> farzana -> 10
+Id: 1388 -> fa -> 3
+student Id: 2838 -> student name ->   fa student mark-> 34
+student Id: 7609 -> student name ->   fd student mark-> 34
