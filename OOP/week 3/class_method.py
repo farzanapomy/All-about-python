@@ -8,7 +8,7 @@ class Shopping:
         self.total = 0
 
     def opening_out(cls, day):
-        return cls.mall_name + " is open on " + day
+        return cls.mall_name + " is open on " + day        
 
     @staticmethod
     def multiply(x, y):
