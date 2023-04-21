@@ -5,7 +5,7 @@ class Laptop:
         self.age = age
 
     def increase_age(self, age=1):
-        self.age += 1
+        self.age += age
 
     def repair(self, life_increase=-5):
         self.increase_age(life_increase)
