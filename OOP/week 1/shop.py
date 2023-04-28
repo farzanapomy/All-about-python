@@ -12,10 +12,10 @@ class Shop:
             total = total+item['price']*item['quantity']
 
         if total > 1000:
-            total = total*0.9    
+            total = total*0.9
         print(total)
 
-            # total += item["price"] * item["quantity"]
+        # total += item["price"] * item["quantity"]
         # print(self.cart)
 
 
