@@ -3,6 +3,7 @@ class User:
         self.f_name = f_name
         self.l_name = l_name
         self.email = f'{self.f_name}.{self.l_name}@user.com'
+# to use any method as like attribute we use property decorator
 
     @property
     def get_fullName(self):
