@@ -1,3 +1,5 @@
+# to use hide restricted data from outside of class
+
 class User:
     def __init__(self, name, password, phone):
         self.name = name
@@ -20,6 +22,7 @@ class User:
 
 dal = User("Dal", "1234", "017000000")
 # print(dal.name)
-# print(dal.password)
+# hack password 
+# print(dal._User.__get_password())
 # dal.get_password()
 result = dal.user_login("Dal", "1234")
