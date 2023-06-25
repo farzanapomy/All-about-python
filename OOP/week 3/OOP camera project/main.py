@@ -1,4 +1,4 @@
-""" 
+"""
     Create a camera app using PyQt5
     Author:  Farzana Pomy
     Purpose:    To learn how to use PyQt5 to create a camera app
@@ -40,17 +40,30 @@ class Window(QWidget):
 
     def ui(self):
         """ Contains all the ui elements. Like buttons, labels, etc. """
+
+        # layout
+        grid = QGridLayout()
+        self.setLayout(grid)
+
         # image label
         self.img_label = QLabel(self)
         self.img_label.setGeometry(0, 0, self.image_width, self.image_height)
 
         # create Button
-        self.capture_btn = QPushButton(self)
+        self.capture_btn = QPushButton("Start", self)
         self.capture_btn.setIcon(self.capture_icon)
+        self.capture_btn.setStyleSheet(
+            " border: 1px solid black; border-radius: 15px; padding: 5px; font-size: 20px; font-weight: bold;")
+        self.capture_btn.setFixedSize(100, 50)
+        self.capture_btn.clicked.connect(self.save_img)
 
         if not self.timer.isActive():
             self.cap = cv2.VideoCapture(0)
             self.timer.start(20)
+
+        # add widgets to the layout grid
+        grid.addWidget(self.capture_btn, 0, 0)
+        grid.addWidget(self.img_label, 0, 1)
 
         self.show()
 
@@ -67,7 +80,9 @@ class Window(QWidget):
 
     def save_img(self):
         """ Saves the image from camera"""
-        pass
+        print("save image")
+        # save image
+        cv2.imwrite("image.jpg", self.frame)
 
     def record(self):
         """ Records the video """

@@ -1,1 +1,1 @@
-QIcon(cam_icon_path)
+f2f2f2
