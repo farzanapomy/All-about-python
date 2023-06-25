@@ -1,0 +1,1 @@
+QIcon(cam_icon_path)
