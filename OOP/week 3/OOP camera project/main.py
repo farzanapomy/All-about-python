@@ -13,6 +13,8 @@ from PyQt5.QtGui import QPixmap, QImage, QIcon
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer
 import cv2
+import datetime
+import random
 
 
 class Window(QWidget):
@@ -57,6 +59,14 @@ class Window(QWidget):
         self.capture_btn.setFixedSize(100, 50)
         self.capture_btn.clicked.connect(self.save_img)
 
+        # Record Button
+        self.rec_btn = QPushButton("Record", self)
+        # self.rec_btn.setIcon(self.capture_icon)
+        self.rec_btn.setStyleSheet(
+            " border: 1px solid black; border-radius: 15; padding: 5px; font-size: 14px; font-weight: bold;")
+        self.rec_btn.setFixedSize(100, 50)
+        self.rec_btn.clicked.connect(self.record)
+
         if not self.timer.isActive():
             self.cap = cv2.VideoCapture(0)
             self.timer.start(20)
@@ -64,6 +74,7 @@ class Window(QWidget):
         # add widgets to the layout grid
         grid.addWidget(self.capture_btn, 0, 0)
         grid.addWidget(self.img_label, 0, 1)
+        grid.addWidget(self.rec_btn, 0, 2)
 
         self.show()
 
@@ -81,12 +92,24 @@ class Window(QWidget):
     def save_img(self):
         """ Saves the image from camera"""
         print("save image")
+        self.get_time()
+        # self.get_name()
         # save image
-        cv2.imwrite("image.jpg", self.frame)
+        cv2.imwrite(f"{self.dt}.jpg", self.frame)
 
     def record(self):
         """ Records the video """
-        pass
+        print("record video")
+
+    def get_time(self):
+        now = datetime.datetime.now()
+        self.dt = now.strftime("%m-%d-%y, %H:%M:%S")
+        print(self.dt)
+
+    def get_name(self):
+        """ Gets the name from user """
+        self.name = input("Enter your name: ")
+        print(self.name)
 
 
 # run
