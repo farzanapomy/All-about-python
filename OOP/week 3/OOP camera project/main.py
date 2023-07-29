@@ -25,6 +25,9 @@ class Window(QWidget):
         self.window_width, self.window_height = 600, 450
         # image variable
         self.image_width, self.image_height = 600, 450
+        # others variable
+        self.dt = '0-0-0'
+        self.record_flag = False
 
         # load icon
         self.capture_icon = QIcon(cam_icon_path)
@@ -60,6 +63,7 @@ class Window(QWidget):
         self.capture_btn.clicked.connect(self.save_img)
 
         # Record Button
+
         self.rec_btn = QPushButton("Record", self)
         # self.rec_btn.setIcon(self.capture_icon)
         self.rec_btn.setStyleSheet(
@@ -85,6 +89,14 @@ class Window(QWidget):
         height, width, channel = frame.shape
         step = channel * width
 
+        if self.record_flag == True:
+            print("recording..")
+            self.rec_btn = QPushButton("Stop", self)
+            self.rec_btn.setStyleSheet(
+                " border: 1px solid red; border-radius: 15; padding: 5px; font-size: 14px; font-weight: bold;")
+        else:
+            self.rec_btn.setIcon(self.rec_btn)
+
         # create QImage from image
         q_frame = QImage(frame.data, width, height, step, QImage.Format_RGB888)
         self.img_label.setPixmap(QPixmap.fromImage(q_frame))
@@ -95,21 +107,27 @@ class Window(QWidget):
         self.get_time()
         # self.get_name()
         # save image
-        cv2.imwrite(f"{self.dt}.jpg", self.frame)
+        printed = cv2.imwrite(f"{self.dt}.png", self.frame)
+        if printed:
+            print("image saved")
+        else:
+            print('Error message', sys.stderr)
 
     def record(self):
         """ Records the video """
-        print("record video")
+        print("recording....", self.record_flag)
+        if self.record_flag == True:
+            self.record_flag = False
+            print("stop recording..")
+
+        else:
+            self.record_flag = True
+            print("start recording..")
 
     def get_time(self):
         now = datetime.datetime.now()
-        self.dt = now.strftime("%m-%d-%y, %H:%M:%S")
+        self.dt = now.strftime("%m-%d-%y")
         print(self.dt)
-
-    def get_name(self):
-        """ Gets the name from user """
-        self.name = input("Enter your name: ")
-        print(self.name)
 
 
 # run
