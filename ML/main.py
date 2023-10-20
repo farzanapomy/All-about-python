@@ -14,9 +14,8 @@ clean_up_values={
         'medium':2,
         'high':3
     },
-
-
 }
+
 data=data.replace(clean_up_values)
 # print(data)
 
